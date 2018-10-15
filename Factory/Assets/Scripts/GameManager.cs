@@ -11,7 +11,24 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Transform machines;
 
+    private Machine machineScript;
+    public Machine Machine { get { return machineScript; } }
+
+    private Machine selectedMachine;
+    public Machine SelectedMachine { get { return selectedMachine; } }
+
+
     public MachineBtn ClickedBtn { get; private set;}
+
+    [SerializeField]
+    private Button moveBtn;
+    private bool clickedMoveBtn = false;
+    public bool ClickedMoveBtn { get { return clickedMoveBtn; } set { clickedMoveBtn = value; }}
+
+    [SerializeField]
+    private Button rotateBtn;
+    private bool clickedRotateBtn = false;
+    public bool ClickedRotateBtn { get { return clickedRotateBtn; } set { clickedRotateBtn = value; } }
 
 
     // Use this for initialization
@@ -37,15 +54,27 @@ public class GameManager : Singleton<GameManager>
     public void SubmitSelection()
     {
         object[] obj = Object.FindObjectsOfType(typeof(GameObject));
+
+
+
         foreach (object o in obj)
         {
             GameObject g = (GameObject)o;
             if(g.name == "GreenIndicator(Clone)")
             {
+
                 GameObject machine = Instantiate(ClickedBtn.Machine, g.transform.position, Quaternion.identity);
+                machineScript = machine.transform.GetComponent<Machine>();
+
+
+
                 machine.transform.SetParent(machines.transform);
+
+
                 Destroy(g);
             }
+
+
         }
         selectPanel.SetActive(false);
         this.ClickedBtn = null;
@@ -68,11 +97,48 @@ public class GameManager : Singleton<GameManager>
         LevelManager.Instance.DisableGrid();
     }
 
+    public void SelectMachine(Machine machine)
+    {
+        selectedMachine = machine;
+        machine.Select();
+    }
+
+    public void DeselectMachine()
+    {
+        if(selectedMachine != null)
+        {
+            selectedMachine.Deselect();
+        }
+
+        selectedMachine = null;
+    }
+
     public void RotateMachine()
     {
+        clickedRotateBtn = !clickedRotateBtn;
+
+        if (clickedRotateBtn)
+        {
+            rotateBtn.GetComponentInChildren<Text>().text = "OK?";
+        }
+        else
+        {
+            rotateBtn.GetComponentInChildren<Text>().text = "Rotate";
+        }
     }
 
     public void MoveMachine()
     {
+        clickedMoveBtn = !clickedMoveBtn;
+
+        if(clickedMoveBtn)
+        {
+            moveBtn.GetComponentInChildren<Text>().text = "OK?";
+        }
+        else
+        {
+            moveBtn.GetComponentInChildren<Text>().text = "Move";
+        }
+        Debug.Log("Button status: " + clickedMoveBtn);
     }
 }

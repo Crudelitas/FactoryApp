@@ -1,10 +1,7 @@
 ﻿
-public class Roller : Machine {
+using UnityEngine;
 
-    private void Update()
-    {
-        
-    }
+public class Roller : Machine {
 
     public override void Process(){
         print("Hello I am Working");

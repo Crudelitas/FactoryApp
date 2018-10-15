@@ -8,6 +8,8 @@ public class TileScript : MonoBehaviour
 {
     public Point GridPosition{ get; private set; }
 
+    private Machine machine;
+
     public void Setup(Point gridPos, Vector3 worldPos, Transform parent)
     {
         this.GridPosition = gridPos;
@@ -33,11 +35,36 @@ public class TileScript : MonoBehaviour
                 }
             }
         }
-        //Debug.Log(GridPosition.X + " , " + GridPosition.Y);
+        else if(!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn == null && Input.GetMouseButton(0) && GameManager.Instance.ClickedMoveBtn)
+        {
+            Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+
+            if (rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine == null)
+            {
+                GameManager.Instance.SelectMachine(rayHit.collider.GetComponent<Machine>());
+            }
+            else if(rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine != null)
+            {
+                GameManager.Instance.DeselectMachine();
+            }
+            else if(rayHit.collider.GetComponent<Machine>() == null && GameManager.Instance.SelectedMachine != null)
+            {
+                GameManager.Instance.SelectedMachine.transform.position = rayHit.transform.position;
+                GameManager.Instance.DeselectMachine();
+            }
+        }
+        else if(!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn == null && Input.GetMouseButton(0) && GameManager.Instance.ClickedRotateBtn)
+        {
+            Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+
+            rayHit.collider.GetComponent<Machine>().Rotate();
+        }
     }
 
     private void MakeSelection()
     {
-        Instantiate(LevelManager.Instance.TilePrefabs[6], transform.position, Quaternion.identity);
+        Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
     }
 }

@@ -11,6 +11,16 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Transform machines;
 
+    [SerializeField]
+    private Button moveBtn;
+    private bool clickedMoveBtn = false;
+    public bool ClickedMoveBtn { get { return clickedMoveBtn; } set { clickedMoveBtn = value; } }
+
+    [SerializeField]
+    private Button rotateBtn;
+    private bool clickedRotateBtn = false;
+    public bool ClickedRotateBtn { get { return clickedRotateBtn; } set { clickedRotateBtn = value; } }
+
     private Machine machineScript;
     public Machine Machine { get { return machineScript; } }
 
@@ -20,15 +30,6 @@ public class GameManager : Singleton<GameManager>
 
     public MachineBtn ClickedBtn { get; private set;}
 
-    [SerializeField]
-    private Button moveBtn;
-    private bool clickedMoveBtn = false;
-    public bool ClickedMoveBtn { get { return clickedMoveBtn; } set { clickedMoveBtn = value; }}
-
-    [SerializeField]
-    private Button rotateBtn;
-    private bool clickedRotateBtn = false;
-    public bool ClickedRotateBtn { get { return clickedRotateBtn; } set { clickedRotateBtn = value; } }
 
 
     // Use this for initialization
@@ -115,30 +116,36 @@ public class GameManager : Singleton<GameManager>
 
     public void RotateMachine()
     {
-        clickedRotateBtn = !clickedRotateBtn;
+        if(!clickedMoveBtn)
+        {
+            clickedRotateBtn = !clickedRotateBtn;
 
-        if (clickedRotateBtn)
-        {
-            rotateBtn.GetComponentInChildren<Text>().text = "OK?";
-        }
-        else
-        {
-            rotateBtn.GetComponentInChildren<Text>().text = "Rotate";
+            if (clickedRotateBtn)
+            {
+                rotateBtn.GetComponentInChildren<Text>().text = "OK?";
+            }
+            else
+            {
+                rotateBtn.GetComponentInChildren<Text>().text = "Rotate";
+            }
         }
     }
 
     public void MoveMachine()
     {
-        clickedMoveBtn = !clickedMoveBtn;
+        if(!clickedRotateBtn)
+        {
+            clickedMoveBtn = !clickedMoveBtn;
 
-        if(clickedMoveBtn)
-        {
-            moveBtn.GetComponentInChildren<Text>().text = "OK?";
+            if (clickedMoveBtn)
+            {
+                moveBtn.GetComponentInChildren<Text>().text = "OK?";
+            }
+            else
+            {
+                moveBtn.GetComponentInChildren<Text>().text = "Move";
+            }
+            Debug.Log("Button status: " + clickedMoveBtn);
         }
-        else
-        {
-            moveBtn.GetComponentInChildren<Text>().text = "Move";
-        }
-        Debug.Log("Button status: " + clickedMoveBtn);
     }
 }

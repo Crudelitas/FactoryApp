@@ -21,7 +21,8 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn != null)
+        if (!EventSystem.current.IsPointerOverGameObject()      && 
+            GameManager.Instance.ClickedBtn != null)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -35,7 +36,10 @@ public class TileScript : MonoBehaviour
                 }
             }
         }
-        else if(!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn == null && Input.GetMouseButton(0) && GameManager.Instance.ClickedMoveBtn)
+        else if(!EventSystem.current.IsPointerOverGameObject()  && 
+                GameManager.Instance.ClickedBtn == null         && 
+                Input.GetMouseButton(0)                         && 
+                GameManager.Instance.ClickedMoveBtn)
         {
             Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
@@ -54,7 +58,10 @@ public class TileScript : MonoBehaviour
                 GameManager.Instance.DeselectMachine();
             }
         }
-        else if(!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn == null && Input.GetMouseButton(0) && GameManager.Instance.ClickedRotateBtn)
+        else if(!EventSystem.current.IsPointerOverGameObject()  && 
+                GameManager.Instance.ClickedBtn == null         && 
+                Input.GetMouseButton(0)                         && 
+                GameManager.Instance.ClickedRotateBtn)
         {
             Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);

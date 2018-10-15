@@ -36,6 +36,27 @@ public class TileScript : MonoBehaviour
                 }
             }
         }
+        else if(!EventSystem.current.IsPointerOverGameObject() &&
+                GameManager.Instance.ClickedDeleteBtn)
+        {
+
+
+
+            if(Input.GetMouseButtonDown(0))
+            {
+                Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+
+                if (rayHit.collider.GetComponent<Machine>() != null)
+                {
+                    GameManager.Instance.DeleteMachine(rayHit.collider.GetComponent<Machine>());
+                }
+            }
+
+
+
+
+        }
         else if(!EventSystem.current.IsPointerOverGameObject()  && 
                 GameManager.Instance.ClickedBtn == null         && 
                 Input.GetMouseButton(0)                         && 
@@ -73,5 +94,10 @@ public class TileScript : MonoBehaviour
     private void MakeSelection()
     {
         Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
+    }
+
+    private void MakeDeleteSelection()
+    {
+        Instantiate(LevelManager.Instance.TilePrefabs[2], transform.position, Quaternion.identity);
     }
 }

@@ -21,6 +21,11 @@ public class GameManager : Singleton<GameManager>
     private bool clickedRotateBtn = false;
     public bool ClickedRotateBtn { get { return clickedRotateBtn; } set { clickedRotateBtn = value; } }
 
+    [SerializeField]
+    private Button deleteBtn;
+    private bool clickedDeleteBtn = false;
+    public bool ClickedDeleteBtn { get { return clickedDeleteBtn; } set { clickedDeleteBtn = value; } }
+
     private Machine machineScript;
     public Machine Machine { get { return machineScript; } }
 
@@ -56,8 +61,6 @@ public class GameManager : Singleton<GameManager>
     {
         object[] obj = Object.FindObjectsOfType(typeof(GameObject));
 
-
-
         foreach (object o in obj)
         {
             GameObject g = (GameObject)o;
@@ -66,16 +69,9 @@ public class GameManager : Singleton<GameManager>
 
                 GameObject machine = Instantiate(ClickedBtn.Machine, g.transform.position, Quaternion.identity);
                 machineScript = machine.transform.GetComponent<Machine>();
-
-
-
                 machine.transform.SetParent(machines.transform);
-
-
                 Destroy(g);
             }
-
-
         }
         selectPanel.SetActive(false);
         this.ClickedBtn = null;
@@ -112,6 +108,31 @@ public class GameManager : Singleton<GameManager>
         }
 
         selectedMachine = null;
+    }
+
+    public void DeleteMachine(Machine machine)
+    {
+        selectedMachine = machine;
+        machine.DeleteSelect();
+    }
+
+    public void DeleteButton()
+    {
+        clickedDeleteBtn = !clickedDeleteBtn;
+    }
+
+    public void SubmitDeleteSelection()
+    {
+        object[] obj = Object.FindObjectsOfType(typeof(GameObject));
+
+        foreach (object o in obj)
+        {
+            GameObject g = (GameObject)o;
+            if (g.GetComponentInChildren<SpriteRenderer>().sprite.name == "Test_Spritesheet_6")
+            {
+                Destroy(g);
+            }
+        }
     }
 
     public void RotateMachine()

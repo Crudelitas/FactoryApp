@@ -44,11 +44,16 @@ abstract public class Machine : MonoBehaviour {
     {
         spriteRenderer.sprite = selected;
     }
+
     public void Deselect()
     {
         spriteRenderer.sprite = machineSprite;
     }
 
+    public void DeleteSelect()
+    {
+        spriteRenderer.sprite = delete;
+    }
     //private void Move();
     //private void Sell();
     public abstract void Process();

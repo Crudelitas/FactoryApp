@@ -121,6 +121,8 @@ public class GameManager : Singleton<GameManager>
 
     public void SubmitDeleteSelection()
     {
+        //Can throw Error, Maybe use the same technique as with the RotateMachine() -> MachineHolder!
+
         object[] obj = Object.FindObjectsOfType(typeof(GameObject));
 
         foreach (object o in obj)

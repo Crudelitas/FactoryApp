@@ -86,7 +86,10 @@ public class TileScript : MonoBehaviour
             Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
 
-            rayHit.collider.GetComponent<Machine>().Rotate();
+            if(rayHit.collider.GetComponent<Machine>())
+            {
+                rayHit.collider.GetComponent<Machine>().Rotate();
+            }
         }
     }
 

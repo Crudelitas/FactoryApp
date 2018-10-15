@@ -35,9 +35,7 @@ abstract public class Machine : MonoBehaviour {
 
     public void Rotate()
     {
-        //transform.Rotate(Vector3.forward * -90);
         GetComponentInChildren<Transform>().eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - 90);
-        //Debug.Log(GetComponentInChildren<Transform>().eulerAngles.z);
     }
 
     public void Select()

@@ -32,9 +32,7 @@ public class GameManager : Singleton<GameManager>
     private Machine selectedMachine;
     public Machine SelectedMachine { get { return selectedMachine; } }
 
-
     public MachineBtn ClickedBtn { get; private set;}
-
 
 
     // Use this for initialization
@@ -144,10 +142,12 @@ public class GameManager : Singleton<GameManager>
             if (clickedRotateBtn)
             {
                 rotateBtn.GetComponentInChildren<Text>().text = "OK?";
+                MachineHolder.Instance.ActivateRotationMode();
             }
             else
             {
                 rotateBtn.GetComponentInChildren<Text>().text = "Rotate";
+                MachineHolder.Instance.DeactivateRotationMode();
             }
         }
     }

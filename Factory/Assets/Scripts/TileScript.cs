@@ -39,8 +39,7 @@ public class TileScript : MonoBehaviour
         else if(!EventSystem.current.IsPointerOverGameObject() &&
                 GameManager.Instance.ClickedDeleteBtn)
         {
-
-
+            /* Working but still throws an exception! */
 
             if(Input.GetMouseButtonDown(0))
             {
@@ -53,7 +52,7 @@ public class TileScript : MonoBehaviour
                 }
             }
 
-
+            /*------------------------------------------*/
 
 
         }

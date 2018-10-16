@@ -21,7 +21,7 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!EventSystem.current.IsPointerOverGameObject()      && 
+        if (!EventSystem.current.IsPointerOverGameObject() &&
             GameManager.Instance.ClickedBtn != null)
         {
             if (Input.GetMouseButtonDown(0))
@@ -29,8 +29,8 @@ public class TileScript : MonoBehaviour
                 if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
                 {
                     MakeSelection();
-                } 
-                else 
+                }
+                else
                 {
                     Destroy(transform.gameObject);
                 }
@@ -39,8 +39,6 @@ public class TileScript : MonoBehaviour
         else if(!EventSystem.current.IsPointerOverGameObject() &&
                 GameManager.Instance.ClickedDeleteBtn)
         {
-            /* Working but still throws an exception! */
-
             if(Input.GetMouseButtonDown(0))
             {
                 Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -48,13 +46,9 @@ public class TileScript : MonoBehaviour
 
                 if (rayHit.collider.GetComponent<Machine>() != null)
                 {
-                    GameManager.Instance.DeleteMachine(rayHit.collider.GetComponent<Machine>());
+                    GameManager.Instance.DeleteMachineSelection(rayHit.collider.GetComponent<Machine>());
                 }
             }
-
-            /*------------------------------------------*/
-
-
         }
         else if(!EventSystem.current.IsPointerOverGameObject()  && 
                 GameManager.Instance.ClickedBtn == null         && 
@@ -95,11 +89,7 @@ public class TileScript : MonoBehaviour
 
     private void MakeSelection()
     {
+        /* Make the Selection with the actual machine like in delete Selection!! */
         Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
-    }
-
-    private void MakeDeleteSelection()
-    {
-        Instantiate(LevelManager.Instance.TilePrefabs[2], transform.position, Quaternion.identity);
     }
 }

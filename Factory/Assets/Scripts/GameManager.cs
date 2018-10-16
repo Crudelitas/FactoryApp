@@ -26,6 +26,9 @@ public class GameManager : Singleton<GameManager>
     private bool clickedDeleteBtn = false;
     public bool ClickedDeleteBtn { get { return clickedDeleteBtn; } set { clickedDeleteBtn = value; } }
 
+    [SerializeField]
+    private Button submitBtn;
+
     private Machine machineScript;
     public Machine Machine { get { return machineScript; } }
 
@@ -67,7 +70,7 @@ public class GameManager : Singleton<GameManager>
 
                 GameObject machine = Instantiate(ClickedBtn.Machine, g.transform.position, Quaternion.identity);
                 machineScript = machine.transform.GetComponent<Machine>();
-                machine.transform.SetParent(machines.transform);
+                machine.transform.SetParent(machines);
                 Destroy(g);
             }
         }
@@ -108,7 +111,7 @@ public class GameManager : Singleton<GameManager>
         selectedMachine = null;
     }
 
-    public void DeleteMachine(Machine machine)
+    public void DeleteMachineSelection(Machine machine)
     {
         selectedMachine = machine;
         machine.DeleteSelect();
@@ -116,23 +119,29 @@ public class GameManager : Singleton<GameManager>
 
     public void DeleteButton()
     {
-        clickedDeleteBtn = !clickedDeleteBtn;
+        if (!clickedMoveBtn && !clickedRotateBtn)
+        {
+            clickedDeleteBtn = !clickedDeleteBtn;
+
+            if (clickedDeleteBtn)
+            {
+                deleteBtn.GetComponentInChildren<Text>().text = "Cancel?";
+                submitBtn.gameObject.SetActive(true);
+            }
+            else
+            {
+                deleteBtn.GetComponentInChildren<Text>().text = "Delete";
+                submitBtn.gameObject.SetActive(false);
+                MachineHolder.Instance.DeselectMachines();
+            }
+        }
     }
 
     public void SubmitDeleteSelection()
     {
-        //Can throw Error, Maybe use the same technique as with the RotateMachine() -> MachineHolder!
-
-        object[] obj = Object.FindObjectsOfType(typeof(GameObject));
-
-        foreach (object o in obj)
-        {
-            GameObject g = (GameObject)o;
-            if (g.GetComponentInChildren<SpriteRenderer>().sprite.name == "Test_Spritesheet_6")
-            {
-                Destroy(g);
-            }
-        }
+        deleteBtn.GetComponentInChildren<Text>().text = "Delete";
+        submitBtn.gameObject.SetActive(false);
+        MachineHolder.Instance.DeleteMachines();
     }
 
     public void RotateMachine()

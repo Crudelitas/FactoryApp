@@ -22,41 +22,46 @@ public class TileScript : MonoBehaviour
     private void OnMouseOver()
     {
         if (!EventSystem.current.IsPointerOverGameObject() &&
+            Input.GetMouseButtonDown(0) &&
             GameManager.Instance.ClickedBtn != null)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
             {
-                if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
-                {
-                    MakeSelection();
-                }
-                else
-                {
-                    Destroy(transform.gameObject);
-                }
+                MakeSelection();
+            }
+            else
+            {
+                Destroy(transform.gameObject);
             }
         }
-        else if(!EventSystem.current.IsPointerOverGameObject() &&
-                GameManager.Instance.ClickedDeleteBtn)
+        /// <remarks>
+        /// Select machines to delete
+        /// </remarks>
+        else if (!EventSystem.current.IsPointerOverGameObject() &&
+                 Input.GetMouseButtonDown(0) &&
+                 GameManager.Instance.ClickedDeleteBtn)
         {
-            if(Input.GetMouseButtonDown(0))
-            {
-                Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+            RaycastHit2D rayHit = GetRayHit();
 
-                if (rayHit.collider.GetComponent<Machine>() != null)
-                {
-                    GameManager.Instance.DeleteMachineSelection(rayHit.collider.GetComponent<Machine>());
-                }
+            if (rayHit.collider.GetComponent<Machine>() != null && 
+                transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_6")
+            {
+                GameManager.Instance.DeleteMachineSelection(rayHit.collider.GetComponent<Machine>());
+            }
+            else
+            {
+                GameManager.Instance.DeselectMachine();
             }
         }
-        else if(!EventSystem.current.IsPointerOverGameObject()  && 
+        /// <remarks>
+        /// The following Part is for seleceting and moving the machines
+        /// </remarks>
+        else if (!EventSystem.current.IsPointerOverGameObject()  && 
                 GameManager.Instance.ClickedBtn == null         && 
-                Input.GetMouseButton(0)                         && 
+                Input.GetMouseButtonDown(0)                         && 
                 GameManager.Instance.ClickedMoveBtn)
         {
-            Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+            RaycastHit2D rayHit = GetRayHit();
 
             if (rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine == null)
             {
@@ -72,15 +77,17 @@ public class TileScript : MonoBehaviour
                 GameManager.Instance.DeselectMachine();
             }
         }
-        else if(!EventSystem.current.IsPointerOverGameObject()  && 
+        /// <remarks>
+        /// This part is for machine rotation
+        /// </remarks>
+        else if (!EventSystem.current.IsPointerOverGameObject()  && 
                 GameManager.Instance.ClickedBtn == null         && 
-                Input.GetMouseButton(0)                         && 
+                Input.GetMouseButtonDown(0)                         && 
                 GameManager.Instance.ClickedRotateBtn)
         {
-            Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+            RaycastHit2D rayHit = GetRayHit();
 
-            if(rayHit.collider.GetComponent<Machine>())
+            if (rayHit.collider.GetComponent<Machine>())
             {
                 rayHit.collider.GetComponent<Machine>().Rotate();
             }
@@ -89,7 +96,14 @@ public class TileScript : MonoBehaviour
 
     private void MakeSelection()
     {
-        /* Make the Selection with the actual machine like in delete Selection!! */
+        /* Make the Selection with the actual machine - like in delete Selection!! */
         Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
+    }
+
+    private RaycastHit2D GetRayHit()
+    {
+        Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+        return rayHit;
     }
 }

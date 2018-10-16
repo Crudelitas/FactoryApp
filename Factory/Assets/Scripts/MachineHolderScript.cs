@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MachineHolder : Singleton<MachineHolder> 
+public class MachineHolderScript : Singleton<MachineHolderScript> 
 {
     public void ActivateRotationMode()
     {

@@ -10,9 +10,6 @@ public class GameManager : Singleton<GameManager>
     private GameObject selectPanel;
 
     [SerializeField]
-    private Transform machines;
-
-    [SerializeField]
     private Button moveBtn;
     private bool clickedMoveBtn = false;
     public bool ClickedMoveBtn { get { return clickedMoveBtn; } set { clickedMoveBtn = value; } }
@@ -63,40 +60,18 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void SubmitSelection()
+    public void PlaceMachines()
     {
-        object[] obj = Object.FindObjectsOfType(typeof(GameObject));
-
-        foreach (object o in obj)
-        {
-            GameObject g = (GameObject)o;
-            if(g.name == "GreenIndicator(Clone)")
-            {
-                GameObject machine = Instantiate(ClickedBtn.Machine, g.transform.position, Quaternion.identity);
-                machineScript = machine.transform.GetComponent<Machine>();
-                machine.transform.SetParent(machines);
-                Destroy(g);
-            }
-        }
+        LevelManager.Instance.PlaceMachines(ClickedBtn.Machine);
         selectPanel.SetActive(false);
         this.ClickedBtn = null;
-        LevelManager.Instance.DisableGrid();
     }
 
     public void CancelSelection()
     {
-        object[] obj = Object.FindObjectsOfType(typeof(GameObject));
-        foreach (object o in obj)
-        {
-            GameObject g = (GameObject)o;
-            if (g.name == "GreenIndicator(Clone)")
-            {
-                Destroy(g);
-            }
-        }
+        LevelManager.Instance.CancelSelection();
         selectPanel.SetActive(false);
         this.ClickedBtn = null;
-        LevelManager.Instance.DisableGrid();
     }
 
     /// <summary>
@@ -118,7 +93,7 @@ public class GameManager : Singleton<GameManager>
             {
                 deleteBtn.GetComponentInChildren<Text>().text = "Delete";
                 submitBtn.gameObject.SetActive(false);
-                MachineHolder.Instance.DeselectMachines();
+                MachineHolderScript.Instance.DeselectMachines();
             }
         }
     }
@@ -134,7 +109,7 @@ public class GameManager : Singleton<GameManager>
         clickedDeleteBtn = false;
         deleteBtn.GetComponentInChildren<Text>().text = "Delete";
         submitBtn.gameObject.SetActive(false);
-        MachineHolder.Instance.DeleteMachines();
+        MachineHolderScript.Instance.DeleteMachines();
     }
 
     /// <summary>
@@ -150,12 +125,12 @@ public class GameManager : Singleton<GameManager>
             if (clickedRotateBtn)
             {
                 rotateBtn.GetComponentInChildren<Text>().text = "OK?";
-                MachineHolder.Instance.ActivateRotationMode();
+                MachineHolderScript.Instance.ActivateRotationMode();
             }
             else
             {
                 rotateBtn.GetComponentInChildren<Text>().text = "Rotate";
-                MachineHolder.Instance.DeactivateRotationMode();
+                MachineHolderScript.Instance.DeactivateRotationMode();
             }
         }
     }

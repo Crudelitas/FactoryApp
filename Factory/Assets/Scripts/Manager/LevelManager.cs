@@ -8,17 +8,15 @@ public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField]
     private GameObject[] tilePrefabs;
+    public GameObject[] TilePrefabs{ get{ return tilePrefabs; } }
 
-    public GameObject[] TilePrefabs
-    {
-        get
-        {
-            return tilePrefabs;
-        }
-    }
+    [SerializeField]
+    private Transform machineHolder;
+    public Transform MachineHolder { get; private set; }
 
     [SerializeField]
     private Transform map;
+    public Transform Map { get; private set; }
 
     public float TileSize
     {
@@ -30,15 +28,9 @@ public class LevelManager : Singleton<LevelManager>
     string[]    mapData;
     int         mapX, mapY;
 
-    // Use this for initialization
-    void Start () 
+    private void Start()
     {
         CreateLevel();
-    }
-	
-	// Update is called once per frame
-	void Update () 
-    {
     }
 
     private void CreateLevel()
@@ -114,64 +106,29 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    private void Rotate()
+    public void PlaceMachines(GameObject machine)
     {
-        if(Input.GetMouseButton(0)){
-
-            Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector2 mouseRay = Camera.main.ScreenToWorldPoint(transform.position);
-            RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
-
-            if(rayHit.collider.GetComponentInChildren<Machine>() != null)
+        foreach (Transform child in map)
+        {
+            if (child.gameObject.GetComponent<SpriteRenderer>().sprite.name == "Test_Spritesheet_7")
             {
-                Debug.Log("Hitted: " + rayHit.collider.GetComponentInChildren<SpriteRenderer>().sprite.name);
-                rayHit.collider.GetComponentInChildren<Machine>().Rotate();
-            }
-            else
-            {
-                Debug.Log("Ground Hitted");
+                child.gameObject.GetComponent<SpriteRenderer>().sprite = tilePrefabs[0].GetComponent<SpriteRenderer>().sprite;
+                GameObject newMachine = Instantiate(machine, child.transform.position, Quaternion.identity);
+                newMachine.transform.SetParent(machineHolder);
+                DisableGrid();
             }
         }
     }
 
-    private void Move()
+    public void CancelSelection()
     {
-        
-
-        /*
-        bool selected = false;
-        RaycastHit2D firstRay;
-
-        Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        Vector2 mouseRay = Camera.main.ScreenToWorldPoint(transform.position);
-        RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
-
-        if (Input.GetMouseButton(0) && !selected)
+        foreach (Transform child in map)
         {
-            firstRay = rayHit;
-
-            if ((rayHit.collider.GetComponentInChildren<Machine>() != null))
+            if (child.gameObject.GetComponent<SpriteRenderer>().sprite.name == "Test_Spritesheet_7")
             {
-                string spriteName = rayHit.collider.GetComponentInChildren<SpriteRenderer>().sprite.name;
-
-                rayHit.collider.GetComponentInChildren<SpriteRenderer>().sprite = tilePrefabs[6].GetComponentInChildren<SpriteRenderer>().sprite;
-
-                selected = true;
-
-                //Tiles[new Point(point.X, point.y)].GetComponentInChildren<SpriteRenderer>().sprite = tilePrefabs[7].GetComponentInChildren<SpriteRenderer>().sprite;
-            } 
-        } 
-        else if(Input.GetMouseButton(0) && selected)
-        {
-            if ((rayHit.collider.GetComponentInChildren<SpriteRenderer>().sprite.name == "Test_Spritesheet_0") && selected)
-            {
-                selected = false;
-                firstRay.collider.GetComponentInChildren<SpriteRenderer>().sprite = tilePrefabs[0].GetComponentInChildren<SpriteRenderer>().sprite;
-                rayHit.collider.GetComponentInChildren<SpriteRenderer>().sprite = tilePrefabs[7].GetComponentInChildren<SpriteRenderer>().sprite;
+                child.gameObject.GetComponent<SpriteRenderer>().sprite = tilePrefabs[0].GetComponent<SpriteRenderer>().sprite;
+                DisableGrid();
             }
         }
-        */
     }
 }

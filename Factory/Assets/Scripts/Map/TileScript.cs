@@ -56,7 +56,8 @@ public class TileScript : MonoBehaviour
             case "Select":
                 if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
                 {
-                    Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
+                    //Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
+                    transform.GetComponent<SpriteRenderer>().sprite = LevelManager.Instance.TilePrefabs[3].GetComponent<SpriteRenderer>().sprite;
                 }
                 else
                 {

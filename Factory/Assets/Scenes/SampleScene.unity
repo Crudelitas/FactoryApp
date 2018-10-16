@@ -190,7 +190,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1876061814}
-        m_MethodName: MoveMachine
+        m_MethodName: MoveMachineUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -807,7 +807,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1876061814}
-        m_MethodName: DeleteMachines
+        m_MethodName: DeleteMachinesUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1686,7 +1686,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1876061814}
-        m_MethodName: RotateMachine
+        m_MethodName: RotateMachineUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

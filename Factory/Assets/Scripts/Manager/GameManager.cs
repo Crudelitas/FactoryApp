@@ -27,13 +27,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Button submitBtn;
 
-    private Machine machineScript;
-    public Machine Machine { get { return machineScript; } }
+    public MachineBtn ClickedBtn { get; private set; }
 
-    private Machine selectedMachine;
-    public Machine SelectedMachine { get { return selectedMachine; } }
-
-    public MachineBtn ClickedBtn { get; private set;}
 
 
     // Use this for initialization
@@ -78,7 +73,15 @@ public class GameManager : Singleton<GameManager>
     /// Deletes the machines.
     /// </summary>
 
-    public void DeleteMachines()
+    public void SubmitDeleteSelection()
+    {
+        clickedDeleteBtn = false;
+        deleteBtn.GetComponentInChildren<Text>().text = "Delete";
+        submitBtn.gameObject.SetActive(false);
+        LevelManager.Instance.DeleteMachines();
+    }
+
+    public void DeleteMachinesUI()
     {
         if (!clickedMoveBtn && !clickedRotateBtn)
         {
@@ -98,25 +101,11 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void DeleteMachineSelection(Machine machine)
-    {
-        selectedMachine = machine;
-        machine.DeleteSelect();
-    }
-
-    public void SubmitDeleteSelection()
-    {
-        clickedDeleteBtn = false;
-        deleteBtn.GetComponentInChildren<Text>().text = "Delete";
-        submitBtn.gameObject.SetActive(false);
-        LevelManager.Instance.DeleteMachines();
-    }
-
     /// <summary>
     /// Rotates the machine.
     /// </summary>
 
-    public void RotateMachine()
+    public void RotateMachineUI()
     {
         if(!clickedMoveBtn && !clickedDeleteBtn)
         {
@@ -139,7 +128,7 @@ public class GameManager : Singleton<GameManager>
     /// Moves the machine.
     /// </summary>
 
-    public void MoveMachine()
+    public void MoveMachineUI()
     {
         if(!clickedRotateBtn && !clickedDeleteBtn)
         {
@@ -156,22 +145,6 @@ public class GameManager : Singleton<GameManager>
                 LevelManager.Instance.DisableGrid();
             }
         }
-    }
-
-    public void BuildSelectMachine(Machine machine)
-    {
-        selectedMachine = machine;
-        machine.BuildSelect();
-    }
-
-    public void BuildDeselectMachine()
-    {
-        if (selectedMachine != null)
-        {
-            selectedMachine.BuildDeselect();
-        }
-
-        selectedMachine = null;
     }
 
     public RaycastHit2D GetRayHit()

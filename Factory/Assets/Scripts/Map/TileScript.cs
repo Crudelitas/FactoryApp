@@ -68,27 +68,27 @@ public class TileScript : MonoBehaviour
             case "Delete":
                 if (rayHit.collider.GetComponent<Machine>() != null && transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_6")
                 {
-                    GameManager.Instance.DeleteMachineSelection(rayHit.collider.GetComponent<Machine>());
+                    LevelManager.Instance.SelectMachinesToDelete(rayHit.collider.GetComponent<Machine>());
                 }
                 else
                 {
-                    GameManager.Instance.BuildDeselectMachine();
+                    LevelManager.Instance.MoveDeselectMachine();
                 }
                 break;
 
             case "MoveSelect":
-                if (rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine == null)
+                if (rayHit.collider.GetComponent<Machine>() != null && LevelManager.Instance.SelectedMachine == null)
                 {
-                    GameManager.Instance.BuildSelectMachine(rayHit.collider.GetComponent<Machine>());
+                    LevelManager.Instance.MoveSelectMachine(rayHit.collider.GetComponent<Machine>());
                 }
-                else if (rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine != null)
+                else if (rayHit.collider.GetComponent<Machine>() != null && LevelManager.Instance.SelectedMachine != null)
                 {
-                    GameManager.Instance.BuildDeselectMachine();
+                    LevelManager.Instance.MoveDeselectMachine();
                 }
-                else if (rayHit.collider.GetComponent<Machine>() == null && GameManager.Instance.SelectedMachine != null)
+                else if (rayHit.collider.GetComponent<Machine>() == null && LevelManager.Instance.SelectedMachine != null)
                 {
-                    GameManager.Instance.SelectedMachine.transform.position = rayHit.transform.position;
-                    GameManager.Instance.BuildDeselectMachine();
+                    LevelManager.Instance.SelectedMachine.transform.position = rayHit.transform.position;
+                    LevelManager.Instance.MoveDeselectMachine();
                 }
                 break;
         }

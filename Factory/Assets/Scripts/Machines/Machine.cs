@@ -17,7 +17,6 @@ abstract public class Machine : MonoBehaviour {
 
     [SerializeField]
     private Sprite machineSprite;
-
     public Sprite MachineSprite{ get { return machineSprite; } }
 
     [SerializeField]
@@ -33,17 +32,12 @@ abstract public class Machine : MonoBehaviour {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    public void Rotate()
-    {
-        GetComponentInChildren<Transform>().eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - 90);
-    }
-
-    public void BuildSelect()
+    public void BuildModeSelect()
     {
         spriteRenderer.sprite = selected;
     }
 
-    public void BuildDeselect()
+    public void BuildModeDeselect()
     {
         spriteRenderer.sprite = machineSprite;
     }
@@ -53,9 +47,14 @@ abstract public class Machine : MonoBehaviour {
         spriteRenderer.sprite = delete;
     }
 
-    public void SelectPopUp()
+    public void Select()
     {
 
+    }
+
+    public void Rotate()
+    {
+        GetComponentInChildren<Transform>().eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - 90);
     }
 
     //private void Move();

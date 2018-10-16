@@ -25,8 +25,10 @@ public class LevelManager : Singleton<LevelManager>
     
     public Dictionary<Point, TileScript> Tiles { get; set; }
 
-    string[]    mapData;
-    int         mapX, mapY;
+    private string[]    mapData;
+    private int         mapX, mapY;
+    private Machine     selectedMachine;
+    public  Machine     SelectedMachine { get { return selectedMachine; } }
 
     private void Start()
     {
@@ -172,8 +174,30 @@ public class LevelManager : Singleton<LevelManager>
         {
             if (child.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.name == "Test_Spritesheet_6")
             {
-                child.GetComponent<Machine>().BuildDeselect();
+                child.GetComponent<Machine>().BuildModeDeselect();
             }
         }
+    }
+
+    public void SelectMachinesToDelete(Machine machine)
+    {
+        selectedMachine = machine;
+        machine.DeleteSelect();
+    }
+
+    public void MoveSelectMachine(Machine machine)
+    {
+        selectedMachine = machine;
+        machine.BuildModeSelect();
+    }
+
+    public void MoveDeselectMachine()
+    {
+        if (selectedMachine != null)
+        {
+            selectedMachine.BuildModeDeselect();
+        }
+
+        selectedMachine = null;
     }
 }

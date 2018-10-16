@@ -67,7 +67,6 @@ public class GameManager : Singleton<GameManager>
             GameObject g = (GameObject)o;
             if(g.name == "GreenIndicator(Clone)")
             {
-
                 GameObject machine = Instantiate(ClickedBtn.Machine, g.transform.position, Quaternion.identity);
                 machineScript = machine.transform.GetComponent<Machine>();
                 machine.transform.SetParent(machines);
@@ -146,7 +145,7 @@ public class GameManager : Singleton<GameManager>
 
     public void RotateMachine()
     {
-        if(!clickedMoveBtn)
+        if(!clickedMoveBtn && !clickedDeleteBtn)
         {
             clickedRotateBtn = !clickedRotateBtn;
 
@@ -165,7 +164,7 @@ public class GameManager : Singleton<GameManager>
 
     public void MoveMachine()
     {
-        if(!clickedRotateBtn)
+        if(!clickedRotateBtn && !clickedDeleteBtn)
         {
             clickedMoveBtn = !clickedMoveBtn;
 

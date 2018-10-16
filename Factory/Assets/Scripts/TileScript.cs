@@ -21,89 +21,75 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() &&
-            Input.GetMouseButtonDown(0) &&
-            GameManager.Instance.ClickedBtn != null)
+        if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
         {
-            if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
+            if(GameManager.Instance.ClickedBtn != null)
             {
-                MakeSelection();
+                MakeSelection("Select");
             }
-            else
+            else if (GameManager.Instance.ClickedDeleteBtn)
             {
-                Destroy(transform.gameObject);
+                MakeSelection("Delete");
             }
-        }
-        /// <remarks>
-        /// Select machines to delete
-        /// </remarks>
-        else if (!EventSystem.current.IsPointerOverGameObject() &&
-                 Input.GetMouseButtonDown(0) &&
-                 GameManager.Instance.ClickedDeleteBtn)
-        {
-            RaycastHit2D rayHit = GetRayHit();
-
-            if (rayHit.collider.GetComponent<Machine>() != null && 
-                transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_6")
+            else if(GameManager.Instance.ClickedMoveBtn)
             {
-                GameManager.Instance.DeleteMachineSelection(rayHit.collider.GetComponent<Machine>());
+                MakeSelection("MoveSelect");
             }
-            else
+            else if(GameManager.Instance.ClickedRotateBtn)
             {
-                GameManager.Instance.DeselectMachine();
-            }
-        }
-        /// <remarks>
-        /// The following Part is for seleceting and moving the machines
-        /// </remarks>
-        else if (!EventSystem.current.IsPointerOverGameObject()  && 
-                GameManager.Instance.ClickedBtn == null         && 
-                Input.GetMouseButtonDown(0)                         && 
-                GameManager.Instance.ClickedMoveBtn)
-        {
-            RaycastHit2D rayHit = GetRayHit();
-
-            if (rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine == null)
-            {
-                GameManager.Instance.SelectMachine(rayHit.collider.GetComponent<Machine>());
-            }
-            else if(rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine != null)
-            {
-                GameManager.Instance.DeselectMachine();
-            }
-            else if(rayHit.collider.GetComponent<Machine>() == null && GameManager.Instance.SelectedMachine != null)
-            {
-                GameManager.Instance.SelectedMachine.transform.position = rayHit.transform.position;
-                GameManager.Instance.DeselectMachine();
-            }
-        }
-        /// <remarks>
-        /// This part is for machine rotation
-        /// </remarks>
-        else if (!EventSystem.current.IsPointerOverGameObject()  && 
-                GameManager.Instance.ClickedBtn == null         && 
-                Input.GetMouseButtonDown(0)                         && 
-                GameManager.Instance.ClickedRotateBtn)
-        {
-            RaycastHit2D rayHit = GetRayHit();
-
-            if (rayHit.collider.GetComponent<Machine>())
-            {
-                rayHit.collider.GetComponent<Machine>().Rotate();
+                RaycastHit2D rayHit = GameManager.Instance.GetRayHit();
+                if (rayHit.collider.GetComponent<Machine>())
+                {
+                    rayHit.collider.GetComponent<Machine>().Rotate();
+                }
             }
         }
     }
 
-    private void MakeSelection()
+    private void MakeSelection(string mode)
     {
         /* Make the Selection with the actual machine - like in delete Selection!! */
-        Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
-    }
+        RaycastHit2D rayHit = GameManager.Instance.GetRayHit();
 
-    private RaycastHit2D GetRayHit()
-    {
-        Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
-        return rayHit;
+        switch (mode)
+        {
+            case "Select":
+                if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
+                {
+                    Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    Destroy(transform.gameObject);
+                }
+                break;
+
+            case "Delete":
+                if (rayHit.collider.GetComponent<Machine>() != null && transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_6")
+                {
+                    GameManager.Instance.DeleteMachineSelection(rayHit.collider.GetComponent<Machine>());
+                }
+                else
+                {
+                    GameManager.Instance.BuildDeselectMachine();
+                }
+                break;
+
+            case "MoveSelect":
+                if (rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine == null)
+                {
+                    GameManager.Instance.BuildSelectMachine(rayHit.collider.GetComponent<Machine>());
+                }
+                else if (rayHit.collider.GetComponent<Machine>() != null && GameManager.Instance.SelectedMachine != null)
+                {
+                    GameManager.Instance.BuildDeselectMachine();
+                }
+                else if (rayHit.collider.GetComponent<Machine>() == null && GameManager.Instance.SelectedMachine != null)
+                {
+                    GameManager.Instance.SelectedMachine.transform.position = rayHit.transform.position;
+                    GameManager.Instance.BuildDeselectMachine();
+                }
+                break;
+        }
     }
 }

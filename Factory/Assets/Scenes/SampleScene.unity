@@ -807,7 +807,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1876061814}
-        m_MethodName: DeleteButton
+        m_MethodName: DeleteMachines
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

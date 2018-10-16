@@ -38,12 +38,12 @@ abstract public class Machine : MonoBehaviour {
         GetComponentInChildren<Transform>().eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - 90);
     }
 
-    public void Select()
+    public void BuildSelect()
     {
         spriteRenderer.sprite = selected;
     }
 
-    public void Deselect()
+    public void BuildDeselect()
     {
         spriteRenderer.sprite = machineSprite;
     }
@@ -52,6 +52,12 @@ abstract public class Machine : MonoBehaviour {
     {
         spriteRenderer.sprite = delete;
     }
+
+    public void SelectPopUp()
+    {
+
+    }
+
     //private void Move();
     //private void Sell();
     public abstract void Process();

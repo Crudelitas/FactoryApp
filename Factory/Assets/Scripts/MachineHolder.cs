@@ -44,7 +44,7 @@ public class MachineHolder : Singleton<MachineHolder>
         {
             if (child.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.name == "Test_Spritesheet_6")
             {
-                child.GetComponent<Machine>().Deselect();
+                child.GetComponent<Machine>().BuildDeselect();
             }
         }
     }

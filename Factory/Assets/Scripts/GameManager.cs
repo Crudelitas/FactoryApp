@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager> 
@@ -48,6 +49,10 @@ public class GameManager : Singleton<GameManager>
 		
 	}
 
+    /// <summary>
+    /// Build Machines
+    /// </summary>
+
     public void PickMachine(MachineBtn machineBtn)
     {
         if(this.ClickedBtn == null)
@@ -94,23 +99,11 @@ public class GameManager : Singleton<GameManager>
         LevelManager.Instance.DisableGrid();
     }
 
-    public void SelectMachine(Machine machine)
-    {
-        selectedMachine = machine;
-        machine.Select();
-    }
+    /// <summary>
+    /// Deletes the machines.
+    /// </summary>
 
-    public void DeselectMachine()
-    {
-        if(selectedMachine != null)
-        {
-            selectedMachine.Deselect();
-        }
-
-        selectedMachine = null;
-    }
-
-    public void DeleteButton()
+    public void DeleteMachines()
     {
         if (!clickedMoveBtn && !clickedRotateBtn)
         {
@@ -139,9 +132,14 @@ public class GameManager : Singleton<GameManager>
     public void SubmitDeleteSelection()
     {
         clickedDeleteBtn = false;
+        deleteBtn.GetComponentInChildren<Text>().text = "Delete";
         submitBtn.gameObject.SetActive(false);
         MachineHolder.Instance.DeleteMachines();
     }
+
+    /// <summary>
+    /// Rotates the machine.
+    /// </summary>
 
     public void RotateMachine()
     {
@@ -162,6 +160,10 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    /// <summary>
+    /// Moves the machine.
+    /// </summary>
+
     public void MoveMachine()
     {
         if(!clickedRotateBtn && !clickedDeleteBtn)
@@ -171,11 +173,36 @@ public class GameManager : Singleton<GameManager>
             if (clickedMoveBtn)
             {
                 moveBtn.GetComponentInChildren<Text>().text = "OK?";
+                LevelManager.Instance.ShowGrid();
             }
             else
             {
                 moveBtn.GetComponentInChildren<Text>().text = "Move";
+                LevelManager.Instance.DisableGrid();
             }
         }
+    }
+
+    public void BuildSelectMachine(Machine machine)
+    {
+        selectedMachine = machine;
+        machine.BuildSelect();
+    }
+
+    public void BuildDeselectMachine()
+    {
+        if (selectedMachine != null)
+        {
+            selectedMachine.BuildDeselect();
+        }
+
+        selectedMachine = null;
+    }
+
+    public RaycastHit2D GetRayHit()
+    {
+        Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+        return rayHit;
     }
 }

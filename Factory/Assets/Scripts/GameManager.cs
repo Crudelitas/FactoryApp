@@ -110,12 +110,6 @@ public class GameManager : Singleton<GameManager>
         selectedMachine = null;
     }
 
-    public void DeleteMachineSelection(Machine machine)
-    {
-        selectedMachine = machine;
-        machine.DeleteSelect();
-    }
-
     public void DeleteButton()
     {
         if (!clickedMoveBtn && !clickedRotateBtn)
@@ -136,9 +130,15 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void DeleteMachineSelection(Machine machine)
+    {
+        selectedMachine = machine;
+        machine.DeleteSelect();
+    }
+
     public void SubmitDeleteSelection()
     {
-        deleteBtn.GetComponentInChildren<Text>().text = "Delete";
+        clickedDeleteBtn = false;
         submitBtn.gameObject.SetActive(false);
         MachineHolder.Instance.DeleteMachines();
     }
@@ -176,7 +176,6 @@ public class GameManager : Singleton<GameManager>
             {
                 moveBtn.GetComponentInChildren<Text>().text = "Move";
             }
-            Debug.Log("Button status: " + clickedMoveBtn);
         }
     }
 }

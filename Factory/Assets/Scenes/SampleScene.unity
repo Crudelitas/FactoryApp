@@ -313,7 +313,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1876061814}
-        m_MethodName: SubmitSelection
+        m_MethodName: PlaceMachines
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1194,7 +1194,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 958919970}
-  - component: {fileID: 958919971}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -1215,17 +1214,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &958919971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 958919969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c93918803a45c4fb48d16da8ab13c183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &977273890
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,7 +1991,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectPanel: {fileID: 1993976558}
-  machines: {fileID: 1992850054}
   moveBtn: {fileID: 23909803}
   rotateBtn: {fileID: 1597830340}
   deleteBtn: {fileID: 704716018}
@@ -2233,7 +2220,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1992850054}
-  - component: {fileID: 1992850055}
   m_Layer: 0
   m_Name: Machines
   m_TagString: Untagged
@@ -2254,17 +2240,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1992850055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1992850053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 120dbb93cc2734ea697ef34d3f7cd3df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1993976558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,6 +2390,7 @@ MonoBehaviour:
   - {fileID: 1533863292522860, guid: 2277d15aa4392439f87fda1e15cd3235, type: 2}
   - {fileID: 1015503160681264, guid: 89ee615b2b7ec4e1abafe48f0d5c7e48, type: 2}
   - {fileID: 1084413578085980, guid: 636928ad97e184377befe43866a58187, type: 2}
+  machineHolder: {fileID: 1992850054}
   map: {fileID: 958919970}
 --- !u!4 &2052741734
 Transform:

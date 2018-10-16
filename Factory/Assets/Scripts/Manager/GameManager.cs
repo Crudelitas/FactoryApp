@@ -93,7 +93,7 @@ public class GameManager : Singleton<GameManager>
             {
                 deleteBtn.GetComponentInChildren<Text>().text = "Delete";
                 submitBtn.gameObject.SetActive(false);
-                MachineHolderScript.Instance.DeselectMachines();
+                LevelManager.Instance.DeselectMachines();
             }
         }
     }
@@ -109,7 +109,7 @@ public class GameManager : Singleton<GameManager>
         clickedDeleteBtn = false;
         deleteBtn.GetComponentInChildren<Text>().text = "Delete";
         submitBtn.gameObject.SetActive(false);
-        MachineHolderScript.Instance.DeleteMachines();
+        LevelManager.Instance.DeleteMachines();
     }
 
     /// <summary>
@@ -125,12 +125,12 @@ public class GameManager : Singleton<GameManager>
             if (clickedRotateBtn)
             {
                 rotateBtn.GetComponentInChildren<Text>().text = "OK?";
-                MachineHolderScript.Instance.ActivateRotationMode();
+                LevelManager.Instance.ActivateRotationMode();
             }
             else
             {
                 rotateBtn.GetComponentInChildren<Text>().text = "Rotate";
-                MachineHolderScript.Instance.DeactivateRotationMode();
+                LevelManager.Instance.DeactivateRotationMode();
             }
         }
     }

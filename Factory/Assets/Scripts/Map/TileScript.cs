@@ -23,19 +23,19 @@ public class TileScript : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
         {
-            if(GameManager.Instance.ClickedBtn != null)
+            if(UIManager.Instance.ClickedBtn != null)
             {
                 MakeSelection("Select");
             }
-            else if (GameManager.Instance.ClickedDeleteBtn)
+            else if (UIManager.Instance.ClickedDeleteBtn)
             {
                 MakeSelection("Delete");
             }
-            else if(GameManager.Instance.ClickedMoveBtn)
+            else if(UIManager.Instance.ClickedMoveBtn)
             {
                 MakeSelection("MoveSelect");
             }
-            else if(GameManager.Instance.ClickedRotateBtn)
+            else if(UIManager.Instance.ClickedRotateBtn)
             {
                 RaycastHit2D rayHit = GameManager.Instance.GetRayHit();
                 if (rayHit.collider.GetComponent<Machine>())
@@ -43,25 +43,31 @@ public class TileScript : MonoBehaviour
                     rayHit.collider.GetComponent<Machine>().Rotate();
                 }
             }
+            else
+            {
+                SelectMachine();
+            }
         }
     }
 
     private void MakeSelection(string mode)
     {
-        /* Make the Selection with the actual machine - like in delete Selection!! */
         RaycastHit2D rayHit = GameManager.Instance.GetRayHit();
 
         switch (mode)
         {
             case "Select":
-                if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
+                if (rayHit.collider.GetComponent<Machine>() == null)
                 {
-                    //Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
-                    transform.GetComponent<SpriteRenderer>().sprite = LevelManager.Instance.TilePrefabs[3].GetComponent<SpriteRenderer>().sprite;
-                }
-                else
-                {
-                    Destroy(transform.gameObject);
+                    if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
+                    {
+                        //Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
+                        transform.GetComponent<SpriteRenderer>().sprite = LevelManager.Instance.TilePrefabs[3].GetComponent<SpriteRenderer>().sprite;
+                    }
+                    else
+                    {
+                        Destroy(transform.gameObject);
+                    }
                 }
                 break;
 
@@ -92,5 +98,15 @@ public class TileScript : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void SelectMachine()
+    {
+        RaycastHit2D rayHit = GameManager.Instance.GetRayHit();
+        if (rayHit.collider.GetComponent<Machine>() != null)
+        {
+            GameManager.Instance.SelectMachine(rayHit.collider.gameObject);
+        }
+        else { Debug.Log("Nothing to select!"); }
     }
 }

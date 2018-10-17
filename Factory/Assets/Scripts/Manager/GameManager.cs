@@ -6,31 +6,6 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager> 
 {
-    [SerializeField]
-    private GameObject selectPanel;
-
-    [SerializeField]
-    private Button moveBtn;
-    private bool clickedMoveBtn = false;
-    public bool ClickedMoveBtn { get { return clickedMoveBtn; } set { clickedMoveBtn = value; } }
-
-    [SerializeField]
-    private Button rotateBtn;
-    private bool clickedRotateBtn = false;
-    public bool ClickedRotateBtn { get { return clickedRotateBtn; } set { clickedRotateBtn = value; } }
-
-    [SerializeField]
-    private Button deleteBtn;
-    private bool clickedDeleteBtn = false;
-    public bool ClickedDeleteBtn { get { return clickedDeleteBtn; } set { clickedDeleteBtn = value; } }
-
-    [SerializeField]
-    private Button submitBtn;
-
-    public MachineBtn ClickedBtn { get; private set; }
-
-
-
     // Use this for initialization
     void Start () {
 		
@@ -47,26 +22,19 @@ public class GameManager : Singleton<GameManager>
 
     public void PickMachine(MachineBtn machineBtn)
     {
-        if(this.ClickedBtn == null)
-        {
-            LevelManager.Instance.ShowGrid();
-            selectPanel.SetActive(true);
-            this.ClickedBtn = machineBtn;
-        }
+        UIManager.Instance.PickMachineUI(machineBtn);
     }
 
     public void PlaceMachines()
     {
-        LevelManager.Instance.PlaceMachines(ClickedBtn.Machine);
-        selectPanel.SetActive(false);
-        this.ClickedBtn = null;
+        LevelManager.Instance.PlaceMachines(UIManager.Instance.ClickedBtn.Machine);
+        UIManager.Instance.PlaceMachinesUI();
     }
 
     public void CancelSelection()
     {
         LevelManager.Instance.CancelSelection();
-        selectPanel.SetActive(false);
-        this.ClickedBtn = null;
+        UIManager.Instance.CancelSelectionUI();
     }
 
     /// <summary>
@@ -75,76 +43,36 @@ public class GameManager : Singleton<GameManager>
 
     public void SubmitDeleteSelection()
     {
-        clickedDeleteBtn = false;
-        deleteBtn.GetComponentInChildren<Text>().text = "Delete";
-        submitBtn.gameObject.SetActive(false);
+        UIManager.Instance.SubmitDeleteSelectionUI();
         LevelManager.Instance.DeleteMachines();
     }
 
-    public void DeleteMachinesUI()
+    public void DeleteMachines()
     {
-        if (!clickedMoveBtn && !clickedRotateBtn)
-        {
-            clickedDeleteBtn = !clickedDeleteBtn;
-
-            if (clickedDeleteBtn)
-            {
-                deleteBtn.GetComponentInChildren<Text>().text = "Cancel?";
-                submitBtn.gameObject.SetActive(true);
-            }
-            else
-            {
-                deleteBtn.GetComponentInChildren<Text>().text = "Delete";
-                submitBtn.gameObject.SetActive(false);
-                LevelManager.Instance.DeselectMachines();
-            }
-        }
+        UIManager.Instance.DeleteMachinesUI();
     }
 
     /// <summary>
     /// Rotates the machine.
     /// </summary>
 
-    public void RotateMachineUI()
+    public void RotateMachine()
     {
-        if(!clickedMoveBtn && !clickedDeleteBtn)
-        {
-            clickedRotateBtn = !clickedRotateBtn;
-
-            if (clickedRotateBtn)
-            {
-                rotateBtn.GetComponentInChildren<Text>().text = "OK?";
-                LevelManager.Instance.ActivateRotationMode();
-            }
-            else
-            {
-                rotateBtn.GetComponentInChildren<Text>().text = "Rotate";
-                LevelManager.Instance.DeactivateRotationMode();
-            }
-        }
+        UIManager.Instance.RotateMachineUI();
     }
 
     /// <summary>
-    /// Moves the machine.
+    /// Moves the machine user interface.
     /// </summary>
 
-    public void MoveMachineUI()
+    public void MoveMachine()
     {
-        if(!clickedRotateBtn && !clickedDeleteBtn)
-        {
-            clickedMoveBtn = !clickedMoveBtn;
+        UIManager.Instance.MoveMachineUI();
+    }
 
-            if (clickedMoveBtn)
-            {
-                moveBtn.GetComponentInChildren<Text>().text = "OK?";
-                LevelManager.Instance.ShowGrid();
-            }
-            else
-            {
-                moveBtn.GetComponentInChildren<Text>().text = "Move";
-                LevelManager.Instance.DisableGrid();
-            }
-        }
+    public void SelectMachine(GameObject machine)
+    {
+        UIManager.Instance.SelectMachineUI(machine);
     }
 
     public RaycastHit2D GetRayHit()

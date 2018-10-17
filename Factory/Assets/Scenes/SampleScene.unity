@@ -189,7 +189,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: MoveMachine
         m_Mode: 1
         m_Arguments:
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: PlaceMachines
         m_Mode: 1
         m_Arguments:
@@ -929,7 +929,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: DeleteMachines
         m_Mode: 1
         m_Arguments:
@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: PickMachine
         m_Mode: 2
         m_Arguments:
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: SubmitDeleteSelection
         m_Mode: 1
         m_Arguments:
@@ -1377,7 +1377,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &977273890
 GameObject:
@@ -1596,7 +1596,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: PickMachine
         m_Mode: 2
         m_Arguments:
@@ -1715,7 +1715,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1519902791
 GameObject:
@@ -1793,7 +1793,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: CancelSelection
         m_Mode: 1
         m_Arguments:
@@ -1916,7 +1916,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: RotateMachine
         m_Mode: 1
         m_Arguments:
@@ -2039,7 +2039,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: PickMachine
         m_Mode: 2
         m_Arguments:
@@ -2188,7 +2188,7 @@ RectTransform:
   - {fileID: 537313681}
   - {fileID: 1033358800}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2307,46 +2307,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1872153706}
   m_CullTransparentMesh: 0
---- !u!1 &1876061813
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1876061815}
-  - component: {fileID: 1876061814}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1876061814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1876061813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d97e00f4e32424a90bd9626346e19809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1876061815
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1876061813}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7081776, y: 1.1059052, z: -0.055664062}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1905622637
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,7 +2383,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876061814}
+      - m_Target: {fileID: 680332283}
         m_MethodName: PickMachine
         m_Mode: 2
         m_Arguments:
@@ -2577,7 +2537,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1993976558
 GameObject:

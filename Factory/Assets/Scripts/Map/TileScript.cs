@@ -37,7 +37,7 @@ public class TileScript : MonoBehaviour
             }
             else if(UIManager.Instance.ClickedRotateBtn)
             {
-                RaycastHit2D rayHit = GameManager.Instance.GetRayHit();
+                RaycastHit2D rayHit = GetRayHit();
                 if (rayHit.collider.GetComponent<Machine>())
                 {
                     rayHit.collider.GetComponent<Machine>().Rotate();
@@ -52,7 +52,7 @@ public class TileScript : MonoBehaviour
 
     private void MakeSelection(string mode)
     {
-        RaycastHit2D rayHit = GameManager.Instance.GetRayHit();
+        RaycastHit2D rayHit = GetRayHit();
 
         switch (mode)
         {
@@ -61,7 +61,6 @@ public class TileScript : MonoBehaviour
                 {
                     if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
                     {
-                        //Instantiate(LevelManager.Instance.TilePrefabs[3], transform.position, Quaternion.identity);
                         transform.GetComponent<SpriteRenderer>().sprite = LevelManager.Instance.TilePrefabs[3].GetComponent<SpriteRenderer>().sprite;
                     }
                     else
@@ -102,11 +101,18 @@ public class TileScript : MonoBehaviour
 
     public void SelectMachine()
     {
-        RaycastHit2D rayHit = GameManager.Instance.GetRayHit();
+        RaycastHit2D rayHit = GetRayHit();
         if (rayHit.collider.GetComponent<Machine>() != null)
         {
-            GameManager.Instance.SelectMachine(rayHit.collider.gameObject);
+            UIManager.Instance.SelectMachine(rayHit.collider.gameObject);
         }
         else { Debug.Log("Nothing to select!"); }
+    }
+
+    public RaycastHit2D GetRayHit()
+    {
+        Vector2 fingerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D rayHit = Physics2D.Raycast(fingerPosition, Vector2.zero);
+        return rayHit;
     }
 }

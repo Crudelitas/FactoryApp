@@ -52,7 +52,7 @@ public class UIManager : Singleton<UIManager> {
     }
 
 
-    public void PickMachineUI(MachineBtn machineBtn)
+    public void PickMachine(MachineBtn machineBtn)
     {
         if (this.ClickedBtn == null)
         {
@@ -62,19 +62,21 @@ public class UIManager : Singleton<UIManager> {
         }
     }
 
-    public void PlaceMachinesUI()
+    public void PlaceMachines()
     {
+        LevelManager.Instance.PlaceMachines(UIManager.Instance.ClickedBtn.Machine);
         selectPanel.SetActive(false);
         this.ClickedBtn = null;
     }
 
-    public void CancelSelectionUI()
+    public void CancelSelection()
     {
+        LevelManager.Instance.CancelSelection();
         selectPanel.SetActive(false);
         this.ClickedBtn = null;
     }
 
-    public void DeleteMachinesUI()
+    public void DeleteMachines()
     {
         if (!clickedMoveBtn && !clickedRotateBtn)
         {
@@ -94,14 +96,15 @@ public class UIManager : Singleton<UIManager> {
         }
     }
 
-    public void SubmitDeleteSelectionUI()
+    public void SubmitDeleteSelection()
     {
         clickedDeleteBtn = false;
         deleteBtn.GetComponentInChildren<Text>().text = "Delete";
         submitBtn.gameObject.SetActive(false);
+        LevelManager.Instance.DeleteMachines();
     }
 
-    public void MoveMachineUI()
+    public void MoveMachine()
     {
         if (!clickedRotateBtn && !clickedDeleteBtn)
         {
@@ -120,7 +123,7 @@ public class UIManager : Singleton<UIManager> {
         }
     }
 
-    public void RotateMachineUI()
+    public void RotateMachine()
     {
         if (!clickedMoveBtn && !clickedDeleteBtn)
         {
@@ -139,7 +142,7 @@ public class UIManager : Singleton<UIManager> {
         }
     }
 
-    public void SelectMachineUI(GameObject machine)
+    public void SelectMachine(GameObject machine)
     {
         switch (machine.name)
         {

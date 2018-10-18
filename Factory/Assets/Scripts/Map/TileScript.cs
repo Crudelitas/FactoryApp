@@ -26,6 +26,8 @@ public class TileScript : MonoBehaviour
             if(UIManager.Instance.ClickedBtn != null)
             {
                 MakeSelection("Select");
+                UIManager.Instance.SelectPanel.transform.GetChild(2).GetComponent<Text>().text = UIManager.Instance.CurrentAmount + " $";
+
             }
             else if (UIManager.Instance.ClickedDeleteBtn)
             {
@@ -62,10 +64,12 @@ public class TileScript : MonoBehaviour
                     if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
                     {
                         transform.GetComponent<SpriteRenderer>().sprite = LevelManager.Instance.TilePrefabs[3].GetComponent<SpriteRenderer>().sprite;
+                        UIManager.Instance.CurrentAmount += UIManager.Instance.ClickedBtn.Price;
                     }
                     else
                     {
-                        Destroy(transform.gameObject);
+                        UIManager.Instance.CurrentAmount -= UIManager.Instance.ClickedBtn.Price;
+                        transform.GetComponent<SpriteRenderer>().sprite = LevelManager.Instance.TilePrefabs[1].GetComponent<SpriteRenderer>().sprite;
                     }
                 }
                 break;

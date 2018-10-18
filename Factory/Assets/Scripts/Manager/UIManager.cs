@@ -7,6 +7,8 @@ public class UIManager : Singleton<UIManager> {
 
     [SerializeField]
     private GameObject selectPanel;
+    public GameObject SelectPanel
+    { get { return selectPanel; } }
 
     [SerializeField]
     private GameObject crafterPopUpPanel;
@@ -37,6 +39,9 @@ public class UIManager : Singleton<UIManager> {
 
     public MachineBtn ClickedBtn { get; private set; }
 
+    private uint currentAmount = 0;
+    public uint CurrentAmount { get { return currentAmount; } set { currentAmount = value; } }
+
 
 
     // Use this for initialization
@@ -48,6 +53,13 @@ public class UIManager : Singleton<UIManager> {
     // Update is called once per frame
     void Update()
     {
+        if (CurrentAmount > CurrencyManager.Instance.Currency)
+        {
+            selectPanel.transform.GetChild(0).GetComponent<Button>().interactable = false;
+        }else{
+            selectPanel.transform.GetChild(0).GetComponent<Button>().interactable = true;
+        }
+
 
     }
 
@@ -57,22 +69,26 @@ public class UIManager : Singleton<UIManager> {
         if (this.ClickedBtn == null)
         {
             LevelManager.Instance.ShowGrid();
-            selectPanel.SetActive(true);
+            SelectPanel.SetActive(true);
             this.ClickedBtn = machineBtn;
+            selectPanel.transform.GetChild(2).GetComponent<Text>().text = currentAmount + " $";
         }
     }
 
     public void PlaceMachines()
     {
         LevelManager.Instance.PlaceMachines(UIManager.Instance.ClickedBtn.Machine);
-        selectPanel.SetActive(false);
+        CurrencyManager.Instance.Currency -= CurrentAmount;
+        CurrentAmount = 0;
+        SelectPanel.SetActive(false);
         this.ClickedBtn = null;
     }
 
     public void CancelSelection()
     {
         LevelManager.Instance.CancelSelection();
-        selectPanel.SetActive(false);
+        CurrentAmount = 0;
+        SelectPanel.SetActive(false);
         this.ClickedBtn = null;
     }
 

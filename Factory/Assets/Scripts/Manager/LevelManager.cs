@@ -30,6 +30,7 @@ public class LevelManager : Singleton<LevelManager>
     private Machine     selectedMachine;
     public  Machine     SelectedMachine { get { return selectedMachine; } }
 
+
     private void Start()
     {
         CreateLevel();
@@ -80,8 +81,6 @@ public class LevelManager : Singleton<LevelManager>
     {
         for (int y = 0; y < mapY; y++)
         {
-            char[] newTiles = mapData[y].ToCharArray();
-
             for (int x = 0; x < mapX; x++)
             {
                 if (Tiles[new Point(x, y)].GetComponentInChildren<SpriteRenderer>().sprite.name == "Test_Spritesheet_0")

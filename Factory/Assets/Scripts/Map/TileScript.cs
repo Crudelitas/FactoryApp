@@ -26,12 +26,14 @@ public class TileScript : MonoBehaviour
             if(UIManager.Instance.ClickedBtn != null)
             {
                 MakeSelection("Select");
-                UIManager.Instance.SelectPanel.transform.GetChild(2).GetComponent<Text>().text = UIManager.Instance.CurrentAmount + " $";
+                UIManager.Instance.CurrentAmountDisplay.GetComponent<Text>().text = "-" + UIManager.Instance.CurrentAmount + " $";
 
             }
             else if (UIManager.Instance.ClickedDeleteBtn)
             {
+                /*Delete Currency Add problem maybe because of this if clause?*/
                 MakeSelection("Delete");
+                UIManager.Instance.CurrentAmountDisplay.GetComponent<Text>().text = "+" + UIManager.Instance.CurrentAmount + " $";
             }
             else if(UIManager.Instance.ClickedMoveBtn)
             {
@@ -64,11 +66,11 @@ public class TileScript : MonoBehaviour
                     if (transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_7")
                     {
                         transform.GetComponent<SpriteRenderer>().sprite = LevelManager.Instance.TilePrefabs[3].GetComponent<SpriteRenderer>().sprite;
-                        UIManager.Instance.CurrentAmount += UIManager.Instance.ClickedBtn.Price;
+                        UIManager.Instance.CurrentAmount += CurrencyManager.Instance.GetPrice(UIManager.Instance.ClickedBtn.Machine); 
                     }
                     else
                     {
-                        UIManager.Instance.CurrentAmount -= UIManager.Instance.ClickedBtn.Price;
+                        UIManager.Instance.CurrentAmount -= CurrencyManager.Instance.GetPrice(UIManager.Instance.ClickedBtn.Machine);
                         transform.GetComponent<SpriteRenderer>().sprite = LevelManager.Instance.TilePrefabs[1].GetComponent<SpriteRenderer>().sprite;
                     }
                 }
@@ -77,10 +79,12 @@ public class TileScript : MonoBehaviour
             case "Delete":
                 if (rayHit.collider.GetComponent<Machine>() != null && transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_6")
                 {
+                    UIManager.Instance.CurrentAmount += CurrencyManager.Instance.GetPrice(rayHit.collider.GetComponent<Machine>());
                     LevelManager.Instance.SelectMachinesToDelete(rayHit.collider.GetComponent<Machine>());
                 }
                 else
                 {
+                    UIManager.Instance.CurrentAmount -= CurrencyManager.Instance.GetPrice(rayHit.collider.GetComponent<Machine>());
                     LevelManager.Instance.MoveDeselectMachine();
                 }
                 break;

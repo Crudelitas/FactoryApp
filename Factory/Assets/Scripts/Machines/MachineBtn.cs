@@ -32,6 +32,7 @@ public class MachineBtn : MonoBehaviour {
 
     private void Start()
     {
-        priceTxt.text = Price + " <color=lime>$</color>";
+        Debug.Log(machine.name);
+        priceTxt.text = CurrencyManager.Instance.GetPrice(machine) + " <color=lime>$</color>";
     }
 }

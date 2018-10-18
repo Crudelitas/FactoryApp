@@ -11,6 +11,11 @@ public class UIManager : Singleton<UIManager> {
     { get { return selectPanel; } }
 
     [SerializeField]
+    private GameObject currentAmountDisplay;
+    public GameObject CurrentAmountDisplay
+    { get { return currentAmountDisplay; } }
+
+    [SerializeField]
     private GameObject crafterPopUpPanel;
 
     [SerializeField]
@@ -70,8 +75,10 @@ public class UIManager : Singleton<UIManager> {
         {
             LevelManager.Instance.ShowGrid();
             SelectPanel.SetActive(true);
+            CurrentAmountDisplay.SetActive(true);
+            CurrentAmountDisplay.GetComponent<Text>().color = Color.red;
+            CurrentAmountDisplay.GetComponent<Text>().text = currentAmount + " $";
             this.ClickedBtn = machineBtn;
-            selectPanel.transform.GetChild(2).GetComponent<Text>().text = currentAmount + " $";
         }
     }
 
@@ -81,12 +88,14 @@ public class UIManager : Singleton<UIManager> {
         CurrencyManager.Instance.Currency -= CurrentAmount;
         CurrentAmount = 0;
         SelectPanel.SetActive(false);
+        CurrentAmountDisplay.SetActive(false);
         this.ClickedBtn = null;
     }
 
     public void CancelSelection()
     {
         LevelManager.Instance.CancelSelection();
+        CurrentAmountDisplay.SetActive(false);
         CurrentAmount = 0;
         SelectPanel.SetActive(false);
         this.ClickedBtn = null;
@@ -102,11 +111,15 @@ public class UIManager : Singleton<UIManager> {
             {
                 deleteBtn.GetComponentInChildren<Text>().text = "Cancel?";
                 submitBtn.gameObject.SetActive(true);
+                CurrentAmountDisplay.SetActive(true);
+                CurrentAmountDisplay.GetComponent<Text>().color = Color.green;
+                CurrentAmountDisplay.GetComponent<Text>().text = currentAmount + " $";
             }
             else
             {
                 deleteBtn.GetComponentInChildren<Text>().text = "Delete";
                 submitBtn.gameObject.SetActive(false);
+                CurrentAmountDisplay.SetActive(false);
                 LevelManager.Instance.DeselectMachines();
             }
         }
@@ -117,6 +130,8 @@ public class UIManager : Singleton<UIManager> {
         clickedDeleteBtn = false;
         deleteBtn.GetComponentInChildren<Text>().text = "Delete";
         submitBtn.gameObject.SetActive(false);
+        CurrentAmountDisplay.SetActive(false);
+        CurrentAmount = 0;
         LevelManager.Instance.DeleteMachines();
     }
 

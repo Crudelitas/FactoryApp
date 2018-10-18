@@ -5,13 +5,11 @@ using UnityEngine;
 abstract public class Machine : MonoBehaviour {
 
     [SerializeField]
-    uint price;
+    private bool active;
     [SerializeField]
-    bool active;
+    private float productionSpeed;
     [SerializeField]
-    float productionSpeed;
-    [SerializeField]
-    uint energyCost;
+    private uint energyCost;
 
     GameObject machine;
 

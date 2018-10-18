@@ -359,7 +359,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000 <color=lime>$</color>
+  m_Text: 0 <color=lime>$</color>
 --- !u!222 &45751348
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -594,7 +594,7 @@ RectTransform:
   m_Children:
   - {fileID: 1211014371}
   m_Father: {fileID: 1840638370}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -788,7 +788,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000 <color=lime>$</color>
+  m_Text: 0 <color=lime>$</color>
 --- !u!222 &477418094
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -905,7 +905,7 @@ RectTransform:
   - {fileID: 704716017}
   - {fileID: 912591281}
   m_Father: {fileID: 1840638370}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1024,7 +1024,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000 <color=lime>$</color>
+  m_Text: 0 <color=lime>$</color>
 --- !u!222 &550383192
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1210,6 +1210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectPanel: {fileID: 1993976558}
+  currentAmountDisplay: {fileID: 2131054769}
   crafterPopUpPanel: {fileID: 956477567}
   splitterPopUpPanel: {fileID: 0}
   filterPopUpPanel: {fileID: 0}
@@ -1863,7 +1864,7 @@ RectTransform:
   m_Children:
   - {fileID: 956477568}
   m_Father: {fileID: 1840638370}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2395,7 +2396,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000 <color=lime>$</color>
+  m_Text: 0 <color=lime>$</color>
 --- !u!222 &1573551386
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2662,7 +2663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 1649685690439744, guid: d4b0131f812c0486cb41b6136c92545f, type: 2}
-  price: 100
+  price: 0
   priceTxt: {fileID: 477418093}
 --- !u!1 &1840638366
 GameObject:
@@ -2749,6 +2750,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 2131054770}
   - {fileID: 1956631312}
   - {fileID: 1993976559}
   - {fileID: 537313681}
@@ -3044,7 +3046,7 @@ RectTransform:
   - {fileID: 1905622638}
   - {fileID: 1235879143}
   m_Father: {fileID: 1840638370}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -3137,9 +3139,8 @@ RectTransform:
   m_Children:
   - {fileID: 114372182}
   - {fileID: 1519902792}
-  - {fileID: 2131054770}
   m_Father: {fileID: 1840638370}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3287,12 +3288,12 @@ GameObject:
   - component: {fileID: 2131054772}
   - component: {fileID: 2131054771}
   m_Layer: 5
-  m_Name: currentAmount
+  m_Name: CurrentAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2131054770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3303,8 +3304,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1993976559}
-  m_RootOrder: 2
+  m_Father: {fileID: 1840638370}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

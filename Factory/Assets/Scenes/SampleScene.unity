@@ -1210,6 +1210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectPanel: {fileID: 1993976558}
+  movingToolsPanel: {fileID: 537313680}
   currentAmountDisplay: {fileID: 2131054769}
   crafterPopUpPanel: {fileID: 956477567}
   splitterPopUpPanel: {fileID: 0}

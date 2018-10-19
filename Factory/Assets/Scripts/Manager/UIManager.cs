@@ -11,6 +11,11 @@ public class UIManager : Singleton<UIManager> {
     { get { return selectPanel; } }
 
     [SerializeField]
+    private GameObject movingToolsPanel;
+    public GameObject MovingToolsPanel
+    { get { return movingToolsPanel; } }
+
+    [SerializeField]
     private GameObject currentAmountDisplay;
     public GameObject CurrentAmountDisplay
     { get { return currentAmountDisplay; } }
@@ -70,6 +75,7 @@ public class UIManager : Singleton<UIManager> {
     {
         if (this.ClickedBtn == null && !clickedMoveBtn && !clickedDeleteBtn && !clickedRotateBtn)
         {
+            movingToolsPanel.SetActive(false);
             LevelManager.Instance.ShowGrid();
             SelectPanel.SetActive(true);
             CurrentAmountDisplay.SetActive(true);
@@ -81,6 +87,7 @@ public class UIManager : Singleton<UIManager> {
 
     public void PlaceMachines()
     {
+        movingToolsPanel.SetActive(true);
         LevelManager.Instance.PlaceMachines(UIManager.Instance.ClickedBtn.Machine);
         CurrencyManager.Instance.Currency -= CurrentAmount;
         CurrentAmount = 0;
@@ -91,6 +98,7 @@ public class UIManager : Singleton<UIManager> {
 
     public void CancelSelection()
     {
+        movingToolsPanel.SetActive(true);
         LevelManager.Instance.CancelSelection();
         CurrentAmountDisplay.SetActive(false);
         CurrentAmount = 0;
@@ -100,7 +108,7 @@ public class UIManager : Singleton<UIManager> {
 
     public void DeleteMachines()
     {
-        if (!clickedMoveBtn && !clickedRotateBtn)
+        if (!clickedMoveBtn && !clickedRotateBtn && ClickedBtn == null)
         {
             clickedDeleteBtn = !clickedDeleteBtn;
 

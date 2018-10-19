@@ -138,9 +138,10 @@ public class UIManager : Singleton<UIManager> {
         deleteBtn.GetComponentInChildren<Text>().text = "Delete";
         submitBtn.gameObject.SetActive(false);
         CurrentAmountDisplay.SetActive(false);
-        CurrentAmount = 0;
         LevelManager.Instance.DeleteMachines();
         LevelManager.Instance.ResetSelection();
+        CurrencyManager.Instance.Currency += currentAmount;
+        CurrentAmount = 0;
     }
 
     public void MoveMachine()

@@ -33,6 +33,13 @@ public class LevelManager : Singleton<LevelManager>
 
     private Dictionary<Vector3, Machine> selectedMachines = new Dictionary<Vector3, Machine>();
 
+    public ObjectPool Pool { get; set; }
+
+    private void Awake()
+    {
+        Pool = GetComponent<ObjectPool>();
+    }
+
     private void Start()
     {
         CreateLevel();
@@ -161,7 +168,6 @@ public class LevelManager : Singleton<LevelManager>
         {
             if (child.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.name == "Test_Spritesheet_6")
             {
-                CurrencyManager.Instance.Currency += CurrencyManager.Instance.GetPrice(child.gameObject);
                 Debug.Log("Deleted Machine: " + child.gameObject.name);
                 Destroy(child.gameObject);
             }
@@ -177,13 +183,6 @@ public class LevelManager : Singleton<LevelManager>
                 child.GetComponent<Machine>().BuildModeDeselect();
             }
         }
-    }
-
-    //Delete this function afterwards!
-    public void SelectMachinesToDelete(Machine machine)
-    {
-        selectedMachine = machine;
-        machine.DeleteSelect();
     }
 
     public void MoveSelectMachine(Machine machine)
@@ -215,7 +214,7 @@ public class LevelManager : Singleton<LevelManager>
         selectedMachines.Remove(point);
     }
 
-    public void UpdateDeletionCurrency()
+    public void UpdateDeletionCurrency(float percentage)
     {
         UIManager.Instance.CurrentAmount = 0;
         List<Machine> machineList = new List<Machine>();
@@ -223,7 +222,7 @@ public class LevelManager : Singleton<LevelManager>
 
         foreach(Machine machine in machineList)
         {
-            UIManager.Instance.CurrentAmount += CurrencyManager.Instance.GetPrice(machine);
+            UIManager.Instance.CurrentAmount += (uint)(CurrencyManager.Instance.GetPrice(machine) * percentage);
         }
     }
 

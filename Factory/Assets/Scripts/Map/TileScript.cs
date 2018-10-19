@@ -32,7 +32,7 @@ public class TileScript : MonoBehaviour
             else if (UIManager.Instance.ClickedDeleteBtn)
             {
                 DeleteSelection();
-                LevelManager.Instance.UpdateDeletionCurrency();
+                LevelManager.Instance.UpdateDeletionCurrency(0.75f);
                 UIManager.Instance.CurrentAmountDisplay.GetComponent<Text>().text = "+" + UIManager.Instance.CurrentAmount + " $";
             }
             else if(UIManager.Instance.ClickedMoveBtn)

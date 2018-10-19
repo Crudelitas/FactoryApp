@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using System.Linq;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -30,6 +31,7 @@ public class LevelManager : Singleton<LevelManager>
     private Machine     selectedMachine;
     public  Machine     SelectedMachine { get { return selectedMachine; } }
 
+    private Dictionary<Vector3, Machine> selectedMachines = new Dictionary<Vector3, Machine>();
 
     private void Start()
     {
@@ -177,6 +179,7 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+    //Delete this function afterwards!
     public void SelectMachinesToDelete(Machine machine)
     {
         selectedMachine = machine;
@@ -195,7 +198,37 @@ public class LevelManager : Singleton<LevelManager>
         {
             selectedMachine.BuildModeDeselect();
         }
-
         selectedMachine = null;
+    }
+
+    public void AddToSelection(Vector3 point, Machine machine)
+    {
+        selectedMachines.Add(point, machine);
+        selectedMachine = machine;
+        machine.DeleteSelect();
+    }
+
+    public void RemoveFromSelection(Vector3 point)
+    {
+        Machine machine = selectedMachines[point];
+        machine.BuildModeDeselect();
+        selectedMachines.Remove(point);
+    }
+
+    public void UpdateDeletionCurrency()
+    {
+        UIManager.Instance.CurrentAmount = 0;
+        List<Machine> machineList = new List<Machine>();
+        machineList.AddRange(selectedMachines.Values);
+
+        foreach(Machine machine in machineList)
+        {
+            UIManager.Instance.CurrentAmount += CurrencyManager.Instance.GetPrice(machine);
+        }
+    }
+
+    public void ResetSelection()
+    {
+        selectedMachines.Clear();
     }
 }

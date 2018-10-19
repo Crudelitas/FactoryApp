@@ -31,8 +31,8 @@ public class TileScript : MonoBehaviour
             }
             else if (UIManager.Instance.ClickedDeleteBtn)
             {
-                /*Delete Currency Add problem maybe because of this if clause?*/
-                MakeSelection("Delete");
+                DeleteSelection();
+                LevelManager.Instance.UpdateDeletionCurrency();
                 UIManager.Instance.CurrentAmountDisplay.GetComponent<Text>().text = "+" + UIManager.Instance.CurrentAmount + " $";
             }
             else if(UIManager.Instance.ClickedMoveBtn)
@@ -76,19 +76,6 @@ public class TileScript : MonoBehaviour
                 }
                 break;
 
-            case "Delete":
-                if (rayHit.collider.GetComponent<Machine>() != null && transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_6")
-                {
-                    UIManager.Instance.CurrentAmount += CurrencyManager.Instance.GetPrice(rayHit.collider.GetComponent<Machine>());
-                    LevelManager.Instance.SelectMachinesToDelete(rayHit.collider.GetComponent<Machine>());
-                }
-                else
-                {
-                    UIManager.Instance.CurrentAmount -= CurrencyManager.Instance.GetPrice(rayHit.collider.GetComponent<Machine>());
-                    LevelManager.Instance.MoveDeselectMachine();
-                }
-                break;
-
             case "MoveSelect":
                 if (rayHit.collider.GetComponent<Machine>() != null && LevelManager.Instance.SelectedMachine == null)
                 {
@@ -104,6 +91,25 @@ public class TileScript : MonoBehaviour
                     LevelManager.Instance.MoveDeselectMachine();
                 }
                 break;
+        }
+    }
+
+    public void DeleteSelection()
+    {
+        RaycastHit2D rayHit  = GetRayHit();
+
+        if(rayHit.collider.GetComponent<Machine>() != null)
+        {
+            Vector3 point = rayHit.collider.GetComponent<Machine>().transform.position;
+
+            if(transform.GetComponentInChildren<SpriteRenderer>().sprite.name != "Test_Spritesheet_6")
+            {
+                LevelManager.Instance.AddToSelection(point, rayHit.collider.GetComponent<Machine>());
+            }
+            else
+            {
+                LevelManager.Instance.RemoveFromSelection(point);
+            }
         }
     }
 

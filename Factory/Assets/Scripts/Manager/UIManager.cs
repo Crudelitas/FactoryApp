@@ -64,14 +64,11 @@ public class UIManager : Singleton<UIManager> {
         }else{
             selectPanel.transform.GetChild(0).GetComponent<Button>().interactable = true;
         }
-
-
     }
-
 
     public void PickMachine(MachineBtn machineBtn)
     {
-        if (this.ClickedBtn == null)
+        if (this.ClickedBtn == null && !clickedMoveBtn && !clickedDeleteBtn && !clickedRotateBtn)
         {
             LevelManager.Instance.ShowGrid();
             SelectPanel.SetActive(true);
@@ -120,7 +117,9 @@ public class UIManager : Singleton<UIManager> {
                 deleteBtn.GetComponentInChildren<Text>().text = "Delete";
                 submitBtn.gameObject.SetActive(false);
                 CurrentAmountDisplay.SetActive(false);
+                currentAmount = 0;
                 LevelManager.Instance.DeselectMachines();
+                LevelManager.Instance.ResetSelection();
             }
         }
     }
@@ -133,6 +132,7 @@ public class UIManager : Singleton<UIManager> {
         CurrentAmountDisplay.SetActive(false);
         CurrentAmount = 0;
         LevelManager.Instance.DeleteMachines();
+        LevelManager.Instance.ResetSelection();
     }
 
     public void MoveMachine()

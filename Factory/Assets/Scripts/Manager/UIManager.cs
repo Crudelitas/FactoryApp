@@ -52,12 +52,15 @@ public class UIManager : Singleton<UIManager> {
     private uint currentAmount = 0;
     public uint CurrentAmount { get { return currentAmount; } set { currentAmount = value; } }
 
+    private bool machinesRunning = false;
+    public bool MachinesRunning { get; set; }
+
 
 
     // Use this for initialization
     void Start()
     {
-
+        LevelManager.Instance.ProcessMachines();
     }
 
     // Update is called once per frame
@@ -69,6 +72,13 @@ public class UIManager : Singleton<UIManager> {
         }else{
             selectPanel.transform.GetChild(0).GetComponent<Button>().interactable = true;
         }
+
+    }
+
+    public void ProcessMachines()
+    {
+        MachinesRunning = !MachinesRunning;
+        LevelManager.Instance.ProcessMachines();
     }
 
     public void PickMachine(MachineBtn machineBtn)

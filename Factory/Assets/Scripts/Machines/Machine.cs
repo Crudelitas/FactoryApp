@@ -60,5 +60,4 @@ abstract public class Machine : MonoBehaviour {
     public abstract void Process();
 
 
-
 }

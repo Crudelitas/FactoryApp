@@ -168,7 +168,6 @@ public class LevelManager : Singleton<LevelManager>
         {
             if (child.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.name == "Test_Spritesheet_6")
             {
-                Debug.Log("Deleted Machine: " + child.gameObject.name);
                 Destroy(child.gameObject);
             }
         }
@@ -181,6 +180,17 @@ public class LevelManager : Singleton<LevelManager>
             if (child.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.name == "Test_Spritesheet_6")
             {
                 child.GetComponent<Machine>().BuildModeDeselect();
+            }
+        }
+    }
+
+    public void ProcessMachines()
+    {
+        foreach (Transform child in machineHolder)
+        {
+            if (child.gameObject.name == "Starter(Clone)")
+            {
+                child.GetComponent<Machine>().Process();
             }
         }
     }

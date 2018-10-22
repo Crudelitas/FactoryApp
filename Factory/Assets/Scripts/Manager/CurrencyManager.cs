@@ -35,6 +35,7 @@ public class CurrencyManager : Singleton<CurrencyManager> {
         MachinePrices.Add("Crafter", 100);
         MachinePrices.Add("Furnance", 100);
         MachinePrices.Add("HydraulicPress", 100);
+        MachinePrices.Add("Starter", 100);
     }
 	
 	// Update is called once per frame
@@ -62,6 +63,10 @@ public class CurrencyManager : Singleton<CurrencyManager> {
                 return machinePrices["HydraulicPress"];
             case "HydraulicPress(Clone)":
                 return machinePrices["HydraulicPress"];
+            case "Starter":
+                return machinePrices["Starter"];
+            case "Starter(Clone)":
+                return machinePrices["Starter"];
             default: 
                 return 0;
         }
@@ -87,6 +92,10 @@ public class CurrencyManager : Singleton<CurrencyManager> {
                 return machinePrices["HydraulicPress"];
             case "HydraulicPress(Clone)":
                 return machinePrices["HydraulicPress"];
+            case "Starter":
+                return machinePrices["Starter"];
+            case "Starter(Clone)":
+                return machinePrices["Starter"];
             default:
                 return 0;
         }

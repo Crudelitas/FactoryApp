@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61673039648873582}
   - component: {fileID: 114460153574745306}
   - component: {fileID: 212498263536332272}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GreenIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

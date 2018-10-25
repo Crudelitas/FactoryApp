@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 61855739542029396}
   - component: {fileID: 114966608466751440}
   - component: {fileID: 114009423132405292}
-  m_Layer: 0
+  - component: {fileID: 58856700842569340}
+  m_Layer: 9
   m_Name: Furnance
-  m_TagString: machineTag
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4533851841170746}
   - component: {fileID: 212297497401351940}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FurnanceSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4242538352987214}
   - component: {fileID: 212916468738203468}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ArrowOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +95,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1284371975248630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8318195, y: 1.3915929, z: -0.07246881}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4533851841170746}
@@ -102,6 +103,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58856700842569340
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1284371975248630}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.01
 --- !u!61 &61855739542029396
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -114,7 +130,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00000011920929, y: 0.00000047683716}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -125,7 +141,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32852864, y: 0.3285284}
+  m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
 --- !u!114 &114009423132405292
 MonoBehaviour:
@@ -138,7 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6777b1bdc15f4784877f9cab15e21c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 0
   active: 0
   productionSpeed: 0
   energyCost: 0

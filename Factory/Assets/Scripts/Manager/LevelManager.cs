@@ -122,6 +122,8 @@ public class LevelManager : Singleton<LevelManager>
             {
                 child.gameObject.GetComponent<SpriteRenderer>().sprite = tilePrefabs[0].GetComponent<SpriteRenderer>().sprite;
                 GameObject newMachine = Instantiate(machine, child.transform.position, Quaternion.identity);
+                newMachine.GetComponent<Machine>().gridPosition = child.GetComponent<TileScript>().GridPosition;
+                //Debug.Log(newMachine.name + " positon " + newMachine.GetComponent<Machine>().gridPosition.X + " , " + newMachine.GetComponent<Machine>().gridPosition.Y);
                 newMachine.transform.SetParent(machineHolder);
                 DisableGrid();
             }
@@ -144,10 +146,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         foreach (Transform child in machineHolder)
         {
-            if (child.tag == "machineTag")
-            {
-                child.GetChild(1).gameObject.SetActive(true);
-            }
+            child.GetChild(1).gameObject.SetActive(true);
         }
     }
 
@@ -155,10 +154,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         foreach (Transform child in machineHolder)
         {
-            if (child.tag == "machineTag")
-            {
-                child.GetChild(1).gameObject.SetActive(false);
-            }
+            child.GetChild(1).gameObject.SetActive(false);
         }
     }
 

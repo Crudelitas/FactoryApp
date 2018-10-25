@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61612189460725730}
   - component: {fileID: 114174806356595258}
   - component: {fileID: 212641111247066426}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RedIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

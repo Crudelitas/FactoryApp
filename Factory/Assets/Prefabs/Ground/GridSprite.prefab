@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212266832261474130}
   - component: {fileID: 114250038192720218}
   - component: {fileID: 61217920944577360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
